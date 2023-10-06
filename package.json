@@ -1,0 +1,19 @@
+{
+  "name": "threejs-scroll-transition",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.69.0",
+    "vite": "^4.4.5",
+    "vite-plugin-glsl": "^1.1.2"
+  },
+  "dependencies": {
+    "three": "^0.157.0"
+  }
+}
