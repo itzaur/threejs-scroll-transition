@@ -60,11 +60,11 @@ export default class Experience {
 
   addTextureLoader() {
     this.textureLoader = new THREE.TextureLoader();
-    this.texture1 = this.textureLoader.load('./src/images/1.jpg');
-    this.texture2 = this.textureLoader.load('./src/images/2.jpg');
-    this.texture3 = this.textureLoader.load('./src/images/3.jpg');
-    this.texture4 = this.textureLoader.load('./src/images/4.jpg');
-    this.texture5 = this.textureLoader.load('./src/images/5.jpg');
+    this.texture1 = this.textureLoader.load('images/1.jpg');
+    this.texture2 = this.textureLoader.load('images/2.jpg');
+    this.texture3 = this.textureLoader.load('images/3.jpg');
+    this.texture4 = this.textureLoader.load('images/4.jpg');
+    this.texture5 = this.textureLoader.load('images/5.jpg');
 
     this.gallery = [
       this.texture1,
@@ -117,7 +117,6 @@ export default class Experience {
 
   render() {
     this.renderer.render(this.scene, this.camera);
-    this.material.uniforms.uProgress.value = this.parameters.position;
 
     this.parameters.speed *= 0.7;
     this.parameters.position += this.parameters.speed;
@@ -126,22 +125,22 @@ export default class Experience {
     let delta = theta - this.parameters.position;
     this.parameters.position += delta * 0.035;
 
-    if (Math.abs(theta - this.parameters.position) < 0.001) {
+    if (
+      Math.abs(theta - this.parameters.position) < 0.001 ||
+      this.parameters.position < 0
+    ) {
       this.parameters.position = theta;
     }
 
-    if (this.parameters.position > this.gallery.length) {
+    if (this.parameters.position >= this.gallery.length) {
       this.parameters.position = 0;
-    }
-
-    if (this.parameters.position < 0) {
-      this.parameters.position = theta;
     }
 
     let currentSlide = Math.floor(this.parameters.position);
     let nextSlide =
       (Math.floor(this.parameters.position) + 1) % this.gallery.length;
 
+    this.material.uniforms.uProgress.value = this.parameters.position;
     this.material.uniforms.uTexture1.value = this.gallery[currentSlide];
     this.material.uniforms.uTexture2.value = this.gallery[nextSlide];
   }
@@ -172,8 +171,6 @@ export default class Experience {
     this.mesh.scale.x = this.width / this.height;
 
     this.material.uniforms.uScale.value.y = this.height / this.width;
-
-    this.addFullscreen();
   }
 
   onDblclick() {
