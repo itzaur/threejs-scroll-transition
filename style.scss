@@ -10,3 +10,38 @@
   top: 0;
   left: 0;
 }
+
+.ruler {
+  --size: 1rem;
+  position: fixed;
+  height: 30rem;
+  border-left: 1rem solid white;
+  top: 3rem;
+  left: 3rem;
+
+  & > * {
+    position: absolute;
+    width: var(--size);
+    aspect-ratio: 1;
+    background-color: red;
+  }
+
+  &__point {
+    &--1 {
+      top: 0;
+    }
+
+    &--2 {
+      top: calc(50% - var(--size) / 2);
+    }
+
+    &--3 {
+      top: calc(100% - var(--size));
+    }
+  }
+
+  &__dot {
+    background-color: lightgreen;
+    left: 2rem;
+  }
+}
